@@ -1,6 +1,66 @@
-import React from 'react'
+import React, { Component } from 'react'
+import base from '../../base'
 
-const Campanhas = props => {
+class Campanhas extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            campanhas: {}
+        }
+    }
+    componentDidMount() {
+        base.syncState('campanhas', {
+            context: this,
+            state: 'campanhas',
+            asArray: false
+        })
+    }
+    renderCampanha(campanha){
+        return(
+            <div>
+                <section className="page-section">
+                <div className="container">
+                    <div className="product-item bg-faded">
+                    <div className="product-item-title d-flex">
+                        <div className="p-5 d-flex mr-auto rounded">
+                        <h2 className="section-heading mb-0">
+                            <span className="section-heading-upper">{campanha.subtitulo}</span>
+                            <span className="section-heading-lower">{campanha.nome}</span>
+                        </h2>
+                        </div>
+                    </div>
+                    <div className="product-item-description d-flex ml-auto">
+                        <div className="p-5 rounded">
+                        <p className="mb-0">{campanha.descricao}.</p>
+
+                       { campanha.tipo == "dinheiro" && <div>
+                            <div className="progress">
+                                <div className="progress-bar bg-success" role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <p>Meta: R$ 5.000,00 / Atingidos: R$ 2.500,00</p>
+                            <div>
+                                <button className="btn btn-success">Contribuir</button>
+                            </div>
+                        </div>}
+                        
+                        { campanha.tipo == 'produtos' && <div>
+                            <h4>Como doar:</h4>
+                            <p>{campanha.comoDoar}</p>
+                        </div>}
+
+                        </div> 
+                    </div>
+                    <div className="ml-auto">
+                        
+                    </div>
+                    </div>
+                </div>
+                </section>
+            </div>
+        )
+
+    }
+    render(){
     return(
         <div>
             <section className="page-section">
@@ -23,38 +83,12 @@ const Campanhas = props => {
         </div>
       </div>
     </section>
-
-    <section className="page-section">
-      <div className="container">
-        <div className="product-item bg-faded">
-          <div className="product-item-title d-flex">
-            <div className="p-5 d-flex mr-auto rounded">
-              <h2 className="section-heading mb-0">
-                <span className="section-heading-upper">Delicious Treats, Good Eats</span>
-                <span className="section-heading-lower">Bakery &amp; Kitchen</span>
-              </h2>
-            </div>
-          </div>
-          <div className="product-item-description d-flex ml-auto">
-            <div className="p-5 rounded">
-              <p className="mb-0">Our seasonal menu features delicious snacks, baked goods, and even full meals perfect for breakfast or lunchtime. We source our ingredients from local, oragnic farms whenever possible, alongside premium vendors for specialty goods.</p>
-              <div className="progress">
-                <div className="progress-bar bg-success" role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-              <p>Meta: R$ 5.000,00 / Atingidos: R$ 2.500,00</p>
-              <div>
-                <button className="btn btn-success">Contribuir</button>
-              </div>
-            </div>
-          </div>
-          <div className="ml-auto">
-            
-          </div>
-        </div>
-      </div>
-    </section>
+    {/*JSON.stringify(this.state.campanhas)*/}
+    {Object.keys(this.state.campanhas)
+            .map(key => this.renderCampanha(this.state.campanhas[key]))}
+    
 
         </div>
-    )
+    )}
 }
 export default Campanhas

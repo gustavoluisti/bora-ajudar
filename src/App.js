@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer'
 import Sobre from './components/Sobre/Sobre'
 import Campanhas from './components/Campanhas/Campanhas'
 import Contato from './components/Contato/Contato'
+import Admin from './components/Admin/Admin'
 
 const Component1 = (props) => {
   return <h1>{props.name}</h1>
@@ -22,7 +23,8 @@ class App extends Component {
             <Route path="/sobre" component={Sobre} />
             <Route path="/campanhas" component={Campanhas} />
             <Route path="/contato" component={Contato} />
-            <Footer />  
+            <Route path="/admin" component={Admin} />
+            <Footer />   
           </div>
       </Router>
       
